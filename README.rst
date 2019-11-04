@@ -1,8 +1,8 @@
-**Deprecated**
+This project is a fork aimed at upgrading and maintaining original djangocms-filer that is no longer supported and deprecated by Divio to version 2.2.6 of Django
 
-This project is no longer supported.
+Warning: :: 
 
-Divio will undertake no further development or maintenance of this project. If you are interested in  taking responsibility for this project as its maintainer, please contact us via www.divio.com.
+    As of initial release 2.0.0 of this project Python 2.* support is dropped.
 
 
 ===============
@@ -27,7 +27,7 @@ Dependencies
 ============
 
 * django-filer >= 1.2
-* Django >= 1.8
+* Django >= 2.1
 * django-cms >= 3.1
 * django-sekizai >= 0.4.2
 * easy_thumbnails >= 1.0

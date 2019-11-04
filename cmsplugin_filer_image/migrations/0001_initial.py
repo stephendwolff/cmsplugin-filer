@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FilerImage',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('style', models.CharField(max_length=50, verbose_name='Style', default=settings.CMSPLUGIN_FILER_IMAGE_DEFAULT_STYLE, blank=True, choices=settings.CMSPLUGIN_FILER_IMAGE_STYLE_CHOICES)),
                 ('caption_text', models.CharField(max_length=255, null=True, verbose_name='caption text', blank=True)),
                 ('image_url', models.URLField(default=None, null=True, verbose_name='alternative image url', blank=True)),

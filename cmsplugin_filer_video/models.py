@@ -15,7 +15,7 @@ class FilerVideo(CMSPlugin):
     # player settings
     movie = FilerFileField(
         verbose_name=_('movie file'),
-        help_text=_('use .flv file or h264 encoded video file'),
+        help_text=_('use .webm file or h264 encoded video file'),
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -33,10 +33,17 @@ class FilerVideo(CMSPlugin):
     width = models.PositiveSmallIntegerField(_('width'), default=settings.VIDEO_WIDTH)
     height = models.PositiveSmallIntegerField(_('height'), default=settings.VIDEO_HEIGHT)
 
+    controls = models.BooleanField(_('controls'), default=settings.VIDEO_CONTROLS)
+    muted = models.BooleanField(_('muted'), default=settings.VIDEO_MUTED)
     auto_play = models.BooleanField(_('auto play'), default=settings.VIDEO_AUTOPLAY)
-    auto_hide = models.BooleanField(_('auto hide'), default=settings.VIDEO_AUTOHIDE)
-    fullscreen = models.BooleanField(_('fullscreen'), default=settings.VIDEO_FULLSCREEN)
     loop = models.BooleanField(_('loop'), default=settings.VIDEO_LOOP)
+
+    PRELOAD_CHOICES = (
+        ('auto', _("yes")),
+        ('metadata', _("metadata only")),
+        ('none', _("no")),
+    )
+    preload = models.CharField(_('preload'), max_length=16, choices=PRELOAD_CHOICES, default=settings.VIDEO_PRELOAD)
 
     # plugin settings
     bgcolor = models.CharField(_('background color'), max_length=6, default=settings.VIDEO_BG_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
@@ -51,6 +58,7 @@ class FilerVideo(CMSPlugin):
         to=CMSPlugin,
         related_name='%(app_label)s_%(class)s',
         parent_link=True,
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):
@@ -71,3 +79,9 @@ class FilerVideo(CMSPlugin):
             return self.movie.url
         else:
             return self.movie_url
+    
+    def get_file_extension(self):
+        if self.movie:
+            return self.__str__().split('.')[-1]
+        else:
+            return None

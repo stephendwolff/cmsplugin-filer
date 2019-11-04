@@ -5,12 +5,12 @@ from cmsplugin_filer_file import __version__
 setup(
     name="cmsplugin-filer",
     version=__version__,
-    url='http://github.com/divio/cmsplugin-filer',
+    url='https://github.com/pawelmarkowski/cmsplugin-filer',
     license='BSD',
     description="django-cms plugins for django-filer",
     long_description=open('README.rst').read(),
-    author='Stefan Foulis',
-    author_email='stefan.foulis@gmail.com',
+    author='Radosław Stępień',
+    author_email='rstepien@protonmail.com',
     packages=find_packages(),
     classifiers=[
         'Development Status :: 5 - Production/Stable',

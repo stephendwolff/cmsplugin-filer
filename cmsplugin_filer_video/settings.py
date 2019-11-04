@@ -4,9 +4,10 @@ VIDEO_WIDTH = getattr(settings, "VIDEO_WIDTH", 320)
 VIDEO_HEIGHT = getattr(settings, "VIDEO_HEIGHT", 240)
 
 VIDEO_AUTOPLAY = getattr(settings, "VIDEO_AUTOPLAY", False)
-VIDEO_AUTOHIDE = getattr(settings, "VIDEO_AUTOHIDE", False)
-VIDEO_FULLSCREEN = getattr(settings, "VIDEO_FULLSCREEN", True)
 VIDEO_LOOP = getattr(settings, "VIDEO_LOOP", False)
+VIDEO_CONTROLS = getattr(settings, "VIDEO_CONTROLS", True)
+VIDEO_MUTED = getattr(settings, "VIDEO_MUTED", False)
+VIDEO_PRELOAD = getattr(settings, "VIDEO_PRELOAD", 'none')
 
 VIDEO_BG_COLOR = getattr(settings, "VIDEO_BG_COLOR", "000000")
 VIDEO_TEXT_COLOR = getattr(settings, "VIDEO_TEXT_COLOR", "FFFFFF")

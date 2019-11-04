@@ -18,14 +18,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FilerVideo',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('movie_url', models.CharField(help_text='vimeo or youtube video url. Example: http://www.youtube.com/watch?v=YFa59lK-kpo', max_length=255, null=True, verbose_name='movie url', blank=True)),
                 ('width', models.PositiveSmallIntegerField(verbose_name='width', default=settings.VIDEO_WIDTH)),
                 ('height', models.PositiveSmallIntegerField(verbose_name='height', default=settings.VIDEO_HEIGHT)),
                 ('auto_play', models.BooleanField(verbose_name='auto play', default=settings.VIDEO_AUTOPLAY)),
-                ('auto_hide', models.BooleanField(verbose_name='auto hide', default=settings.VIDEO_AUTOHIDE)),
-                ('fullscreen', models.BooleanField(verbose_name='fullscreen', default=settings.VIDEO_FULLSCREEN)),
+                ('controls', models.BooleanField(verbose_name='controls', default=settings.VIDEO_CONTROLS)),
+                ('muted', models.BooleanField(verbose_name='muted', default=settings.VIDEO_MUTED)),
                 ('loop', models.BooleanField(verbose_name='loop', default=settings.VIDEO_LOOP)),
+                ('preload', models.CharField(verbose_name='preload', default=settings.VIDEO_PRELOAD, max_length=16)),
                 ('bgcolor', models.CharField(default=settings.VIDEO_BG_COLOR, max_length=6, verbose_name='background color', help_text='Hexadecimal, eg ff00cc')),
                 ('textcolor', models.CharField(default=settings.VIDEO_TEXT_COLOR, max_length=6, verbose_name='text color', help_text='Hexadecimal, eg ff00cc')),
                 ('seekbarcolor', models.CharField(default=settings.VIDEO_SEEKBAR_COLOR, max_length=6, verbose_name='seekbar color', help_text='Hexadecimal, eg ff00cc')),

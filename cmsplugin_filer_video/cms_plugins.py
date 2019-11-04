@@ -23,10 +23,11 @@ class FilerVideoPlugin(CMSPluginBase):
         'movie_url',
         'image',
         ('width', 'height'),
+        'controls',
+        'muted',
         'auto_play',
-        'auto_hide',
-        'fullscreen',
         'loop',
+        'preload',
     ]
     color_fields = [
         'bgcolor',
