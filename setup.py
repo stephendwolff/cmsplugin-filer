@@ -9,8 +9,10 @@ setup(
     license='BSD',
     description="django-cms plugins for django-filer",
     long_description=open('README.rst').read(),
-    author='Radosław Stępień',
-    author_email='rstepien@protonmail.com',
+    author='Stefan Foulis',
+    author_email='stefan.foulis@gmail.com',
+    maintainer='Radosław Stępień',
+    maintainer_email='rstepien@protonmail.com',
     packages=find_packages(),
     classifiers=[
         'Development Status :: 5 - Production/Stable',

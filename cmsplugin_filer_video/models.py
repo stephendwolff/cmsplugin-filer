@@ -20,7 +20,7 @@ class FilerVideo(CMSPlugin):
         null=True,
         on_delete=models.SET_NULL,
     )
-    movie_url = models.CharField(_('movie url'), max_length=255, help_text=_('vimeo or youtube video url. Example: http://www.youtube.com/watch?v=YFa59lK-kpo'), blank=True, null=True)
+    movie_url = models.CharField(_('movie url'), max_length=255, help_text=_('vimeo or youtube (embeddable!) video url. Example: https://www.youtube.com/embed/dd4D8tZPfKE'), blank=True, null=True)
     image = FilerImageField(
         verbose_name=_('image'),
         help_text=_('preview image file'),
@@ -30,8 +30,16 @@ class FilerVideo(CMSPlugin):
         on_delete=models.SET_NULL,
     )
 
+    UNIT_CHOICES = (
+        ('px', _("pixels (px)")),
+        ('%', _("percent (%)")),
+        ('em', _("relative to font size (em)")),
+    )
+
     width = models.PositiveSmallIntegerField(_('width'), default=settings.VIDEO_WIDTH)
+    width_units = models.CharField(_("width units"), max_length=2, choices=UNIT_CHOICES, default=settings.VIDEO_UNITS)
     height = models.PositiveSmallIntegerField(_('height'), default=settings.VIDEO_HEIGHT)
+    height_units = models.CharField(_("height units"), max_length=2, choices=UNIT_CHOICES, default=settings.VIDEO_UNITS)
 
     controls = models.BooleanField(_('controls'), default=settings.VIDEO_CONTROLS)
     muted = models.BooleanField(_('muted'), default=settings.VIDEO_MUTED)
