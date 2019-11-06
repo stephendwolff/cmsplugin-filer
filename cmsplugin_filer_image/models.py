@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
 from filer.models import ThumbnailOption  # NOQA
-from filer.utils.compatibility import python_2_unicode_compatible
 
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
@@ -16,8 +15,6 @@ from djangocms_attributes_field.fields import AttributesField
 
 from .conf import settings
 
-
-@python_2_unicode_compatible
 class FilerImage(CMSPlugin):
     LEFT = "left"
     RIGHT = "right"
@@ -47,7 +44,8 @@ class FilerImage(CMSPlugin):
         help_text=_('do not resize the image. use the original image instead.'))
     thumbnail_option = models.ForeignKey(
         'filer.ThumbnailOption', null=True, blank=True, verbose_name=_("thumbnail option"),
-        help_text=_('overrides width, height, crop and upscale with values from the selected thumbnail option'))
+        help_text=_('overrides width, height, crop and upscale with values from the selected thumbnail option'),
+        on_delete=models.CASCADE)
     use_autoscale = models.BooleanField(_("use automatic scaling"), default=False,
                                         help_text=_('tries to auto scale the image based on the placeholder context'))
     width = models.PositiveIntegerField(_("width"), null=True, blank=True)

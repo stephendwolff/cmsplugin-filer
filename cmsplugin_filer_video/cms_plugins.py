@@ -30,29 +30,12 @@ class FilerVideoPlugin(CMSPluginBase):
         'loop',
         'preload',
     ]
-    color_fields = [
-        'bgcolor',
-        'textcolor',
-        'seekbarcolor',
-        'seekbarbgcolor',
-        'loadingbarcolor',
-        'buttonoutcolor',
-        'buttonovercolor',
-        'buttonhighlightcolor',
-    ]
 
     fieldsets = [
         (None, {
             'fields': general_fields,
         }),
     ]
-    if settings.VIDEO_PLUGIN_ENABLE_ADVANCED_SETTINGS:
-        fieldsets += [
-            (_('Color Settings'), {
-                'fields': color_fields,
-                'classes': ('collapse',),
-            }),
-        ]
 
     def render(self, context, instance, placeholder):
         context['object'] = instance

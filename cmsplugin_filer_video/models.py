@@ -6,16 +6,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
-from filer.utils.compatibility import python_2_unicode_compatible
 from os.path import basename
 
-
-@python_2_unicode_compatible
 class FilerVideo(CMSPlugin):
     # player settings
     movie = FilerFileField(
         verbose_name=_('movie file'),
-        help_text=_('use .webm file or h264 encoded video file'),
+        help_text=_('use h264 encoded video file or .webm / .ogg files'),
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -53,15 +50,6 @@ class FilerVideo(CMSPlugin):
     )
     preload = models.CharField(_('preload'), max_length=16, choices=PRELOAD_CHOICES, default=settings.VIDEO_PRELOAD)
 
-    # plugin settings
-    bgcolor = models.CharField(_('background color'), max_length=6, default=settings.VIDEO_BG_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    textcolor = models.CharField(_('text color'), max_length=6, default=settings.VIDEO_TEXT_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    seekbarcolor = models.CharField(_('seekbar color'), max_length=6, default=settings.VIDEO_SEEKBAR_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    seekbarbgcolor = models.CharField(_('seekbar bg color'), max_length=6, default=settings.VIDEO_SEEKBARBG_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    loadingbarcolor = models.CharField(_('loadingbar color'), max_length=6, default=settings.VIDEO_LOADINGBAR_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    buttonoutcolor = models.CharField(_('button out color'), max_length=6, default=settings.VIDEO_BUTTON_OUT_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    buttonovercolor = models.CharField(_('button over color'), max_length=6, default=settings.VIDEO_BUTTON_OVER_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    buttonhighlightcolor = models.CharField(_('button highlight color'), max_length=6, default=settings.VIDEO_BUTTON_HIGHLIGHT_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
     cmsplugin_ptr = models.OneToOneField(
         to=CMSPlugin,
         related_name='%(app_label)s_%(class)s',

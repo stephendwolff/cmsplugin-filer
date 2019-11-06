@@ -39,8 +39,8 @@ class Migration(migrations.Migration):
                 ('original_link', models.BooleanField(default=False, help_text='if present image will be clickable', verbose_name='link original image')),
                 ('description', models.TextField(null=True, verbose_name='description', blank=True)),
                 ('target_blank', models.BooleanField(default=False, verbose_name='Open link in new window')),
-                ('file_link', filer.fields.file.FilerFileField(related_name='+', default=None, to='filer.File', blank=True, help_text='if present image will be clickable', null=True, verbose_name='file link')),
-                ('image', filer.fields.image.FilerImageField(default=None, blank=True, to='filer.Image', null=True, verbose_name='image')),
+                ('file_link', filer.fields.file.FilerFileField(related_name='+', default=None, to='filer.File', blank=True, help_text='if present image will be clickable', null=True, verbose_name='file link', on_delete=models.CASCADE)),
+                ('image', filer.fields.image.FilerImageField(default=None, blank=True, to='filer.Image', null=True, verbose_name='image', on_delete=models.CASCADE)),
                 ('page_link', cms.models.fields.PageField(blank=True, to='cms.Page', help_text='if present image will be clickable', null=True, verbose_name='page link')),
             ],
             options={
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='filerimage',
             name='thumbnail_option',
-            field=models.ForeignKey(blank=True, to='cmsplugin_filer_image.ThumbnailOption', help_text='overrides width, height, crop and upscale with values from the selected thumbnail option', null=True, verbose_name='thumbnail option'),
+            field=models.ForeignKey(blank=True, to='cmsplugin_filer_image.ThumbnailOption', help_text='overrides width, height, crop and upscale with values from the selected thumbnail option', null=True, verbose_name='thumbnail option', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
