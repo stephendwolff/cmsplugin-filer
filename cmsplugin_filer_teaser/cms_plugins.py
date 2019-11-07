@@ -29,7 +29,8 @@ class FilerTeaserPlugin(CMSPluginBase):
             'classes': ('collapse',),
             'fields': [
                 'use_autoscale',
-                ('width', 'height'),
+                ('width', 'width_units'),
+                ('height', 'height_units'),
                 'free_link',
                 'page_link',
                 'target_blank'

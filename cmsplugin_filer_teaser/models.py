@@ -24,8 +24,15 @@ class FilerTeaser(CMSPlugin):
         _('Style'), choices=STYLE_CHOICES, default=DEFAULT_STYLE, max_length=255, blank=True)
     use_autoscale = models.BooleanField(_("use automatic scaling"), default=True,
                                         help_text=_('tries to auto scale the image based on the placeholder context'))
+    UNIT_CHOICES = (
+        ('px', _("pixels (px)")),
+        ('%', _("percent (%)")),
+        ('em', _("relative to font size (em)")),
+    )
     width = models.PositiveIntegerField(_("width"), null=True, blank=True)
+    width_units = models.CharField(_("width units"), max_length=2, choices=UNIT_CHOICES, default='px')
     height = models.PositiveIntegerField(_("height"), null=True, blank=True)
+    height_units = models.CharField(_("height units"), max_length=2, choices=UNIT_CHOICES, default='px')
 
     free_link = models.CharField(_("link"), max_length=255, blank=True, null=True, help_text=_("if present image will be clickable"))
     page_link = PageField(

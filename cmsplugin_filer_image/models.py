@@ -48,8 +48,15 @@ class FilerImage(CMSPlugin):
         on_delete=models.CASCADE)
     use_autoscale = models.BooleanField(_("use automatic scaling"), default=False,
                                         help_text=_('tries to auto scale the image based on the placeholder context'))
+    UNIT_CHOICES = (
+        ('px', _("pixels (px)")),
+        ('%', _("percent (%)")),
+        ('em', _("relative to font size (em)")),
+    )
     width = models.PositiveIntegerField(_("width"), null=True, blank=True)
+    width_units = models.CharField(_("width units"), max_length=2, choices=UNIT_CHOICES, default='px')
     height = models.PositiveIntegerField(_("height"), null=True, blank=True)
+    height_units = models.CharField(_("height units"), max_length=2, choices=UNIT_CHOICES, default='px')
     crop = models.BooleanField(_("crop"), default=True)
     upscale = models.BooleanField(_("upscale"), default=True)
     alignment = models.CharField(_("image alignment"), max_length=10, blank=True, null=True, choices=FLOAT_CHOICES)
