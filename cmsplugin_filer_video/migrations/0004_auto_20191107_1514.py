@@ -50,12 +50,4 @@ class Migration(migrations.Migration):
             name='preload',
             field=models.CharField(choices=[('auto', 'yes'), ('metadata', 'metadata only'), ('none', 'no')], default='none', max_length=16, verbose_name='preload'),
         ),
-        migrations.RemoveField(
-            model_name='filervideo',
-            name='fullscreen',
-        ),
-        migrations.RemoveField(
-            model_name='filvervideo',
-            name='auto_hide',
-        ),
     ]
