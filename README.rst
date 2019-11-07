@@ -2,7 +2,7 @@ This project is a fork aimed at continuing to upgrade and maintain original djan
 
 Warning: :: 
 
-    As of initial release 2.0.0 of this project Python 2.* support is dropped.
+    As of release 2.0.0 of this project Python 2.* support is dropped.
 
 
 ===============
