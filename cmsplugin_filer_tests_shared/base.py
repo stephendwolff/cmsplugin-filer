@@ -7,10 +7,10 @@ from django.test import TransactionTestCase
 from django.utils.translation import override
 
 from cms import api
-from cms.utils import get_cms_setting
+from cms.utils.conf import get_cms_setting
 
 from filer.models.filemodels import File
-from filer.tests.helpers import create_image
+from filer.utils.compatibility import PILImage, PILImageDraw
 
 
 class BasePluginTestMixin(object):
@@ -66,6 +66,15 @@ class BasePluginTestMixin(object):
 
 class CmsPluginsFilerBaseTestCase(TransactionTestCase):
 
+    def create_test_image(self, mode='RGB', size=(800, 600)):
+        image = PILImage.new(mode, size)
+        draw = PILImageDraw.Draw(image)
+        x_bit, y_bit = size[0] // 10, size[1] // 10
+        draw.rectangle((x_bit, y_bit * 2, x_bit * 7, y_bit * 3), 'red')
+        draw.rectangle((x_bit * 2, y_bit, x_bit * 3, y_bit * 8), 'red')
+        return image
+
+
     def setUp(self):
         super(CmsPluginsFilerBaseTestCase, self).setUp()
         # cms related
@@ -81,8 +90,8 @@ class CmsPluginsFilerBaseTestCase(TransactionTestCase):
         self.page = page.reload()
 
         self.placeholder = self.page.placeholders.all()[0]
-        # filer related, taken from django-filer.tests test cases setUp logic
-        self.image = create_image()
+        # filer related, taken from django- test cases setUp logic
+        self.image = self.create_test_image()
         self.image_name = 'test_file.jpg'
         self.filename = os.path.join(settings.FILE_UPLOAD_TEMP_DIR,
                                      self.image_name)

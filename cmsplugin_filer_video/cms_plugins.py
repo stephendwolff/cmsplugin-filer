@@ -22,21 +22,13 @@ class FilerVideoPlugin(CMSPluginBase):
         'movie',
         'movie_url',
         'image',
-        ('width', 'height'),
+        ('width', 'width_units'),
+        ('height', 'height_units'),
+        'controls',
+        'muted',
         'auto_play',
-        'auto_hide',
-        'fullscreen',
         'loop',
-    ]
-    color_fields = [
-        'bgcolor',
-        'textcolor',
-        'seekbarcolor',
-        'seekbarbgcolor',
-        'loadingbarcolor',
-        'buttonoutcolor',
-        'buttonovercolor',
-        'buttonhighlightcolor',
+        'preload',
     ]
 
     fieldsets = [
@@ -44,13 +36,6 @@ class FilerVideoPlugin(CMSPluginBase):
             'fields': general_fields,
         }),
     ]
-    if settings.VIDEO_PLUGIN_ENABLE_ADVANCED_SETTINGS:
-        fieldsets += [
-            (_('Color Settings'), {
-                'fields': color_fields,
-                'classes': ('collapse',),
-            }),
-        ]
 
     def render(self, context, instance, placeholder):
         context['object'] = instance

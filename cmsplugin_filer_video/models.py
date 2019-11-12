@@ -6,21 +6,18 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
-from filer.utils.compatibility import python_2_unicode_compatible
 from os.path import basename
 
-
-@python_2_unicode_compatible
 class FilerVideo(CMSPlugin):
     # player settings
     movie = FilerFileField(
         verbose_name=_('movie file'),
-        help_text=_('use .flv file or h264 encoded video file'),
+        help_text=_('use h264 encoded video file or .webm / .ogg files'),
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
     )
-    movie_url = models.CharField(_('movie url'), max_length=255, help_text=_('vimeo or youtube video url. Example: http://www.youtube.com/watch?v=YFa59lK-kpo'), blank=True, null=True)
+    movie_url = models.CharField(_('movie url'), max_length=255, help_text=_('vimeo or youtube (embeddable!) video url. Example: https://www.youtube.com/embed/dd4D8tZPfKE'), blank=True, null=True)
     image = FilerImageField(
         verbose_name=_('image'),
         help_text=_('preview image file'),
@@ -30,27 +27,34 @@ class FilerVideo(CMSPlugin):
         on_delete=models.SET_NULL,
     )
 
-    width = models.PositiveSmallIntegerField(_('width'), default=settings.VIDEO_WIDTH)
-    height = models.PositiveSmallIntegerField(_('height'), default=settings.VIDEO_HEIGHT)
+    UNIT_CHOICES = (
+        ('px', _("pixels (px)")),
+        ('%', _("percent (%)")),
+        ('em', _("relative to font size (em)")),
+    )
 
+    width = models.PositiveSmallIntegerField(_('width'), default=settings.VIDEO_WIDTH)
+    width_units = models.CharField(_("width units"), max_length=2, choices=UNIT_CHOICES, default=settings.VIDEO_UNITS)
+    height = models.PositiveSmallIntegerField(_('height'), default=settings.VIDEO_HEIGHT)
+    height_units = models.CharField(_("height units"), max_length=2, choices=UNIT_CHOICES, default=settings.VIDEO_UNITS)
+
+    controls = models.BooleanField(_('controls'), default=settings.VIDEO_CONTROLS)
+    muted = models.BooleanField(_('muted'), default=settings.VIDEO_MUTED)
     auto_play = models.BooleanField(_('auto play'), default=settings.VIDEO_AUTOPLAY)
-    auto_hide = models.BooleanField(_('auto hide'), default=settings.VIDEO_AUTOHIDE)
-    fullscreen = models.BooleanField(_('fullscreen'), default=settings.VIDEO_FULLSCREEN)
     loop = models.BooleanField(_('loop'), default=settings.VIDEO_LOOP)
 
-    # plugin settings
-    bgcolor = models.CharField(_('background color'), max_length=6, default=settings.VIDEO_BG_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    textcolor = models.CharField(_('text color'), max_length=6, default=settings.VIDEO_TEXT_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    seekbarcolor = models.CharField(_('seekbar color'), max_length=6, default=settings.VIDEO_SEEKBAR_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    seekbarbgcolor = models.CharField(_('seekbar bg color'), max_length=6, default=settings.VIDEO_SEEKBARBG_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    loadingbarcolor = models.CharField(_('loadingbar color'), max_length=6, default=settings.VIDEO_LOADINGBAR_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    buttonoutcolor = models.CharField(_('button out color'), max_length=6, default=settings.VIDEO_BUTTON_OUT_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    buttonovercolor = models.CharField(_('button over color'), max_length=6, default=settings.VIDEO_BUTTON_OVER_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
-    buttonhighlightcolor = models.CharField(_('button highlight color'), max_length=6, default=settings.VIDEO_BUTTON_HIGHLIGHT_COLOR, help_text=_('Hexadecimal, eg ff00cc'))
+    PRELOAD_CHOICES = (
+        ('auto', _("yes")),
+        ('metadata', _("metadata only")),
+        ('none', _("no")),
+    )
+    preload = models.CharField(_('preload'), max_length=16, choices=PRELOAD_CHOICES, default=settings.VIDEO_PRELOAD)
+
     cmsplugin_ptr = models.OneToOneField(
         to=CMSPlugin,
         related_name='%(app_label)s_%(class)s',
         parent_link=True,
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):
@@ -71,3 +75,9 @@ class FilerVideo(CMSPlugin):
             return self.movie.url
         else:
             return self.movie_url
+    
+    def get_file_extension(self):
+        if self.movie:
+            return self.__str__().split('.')[-1]
+        else:
+            return None

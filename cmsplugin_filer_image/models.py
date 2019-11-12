@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from filer.fields.file import FilerFileField
 from filer.fields.image import FilerImageField
 from filer.models import ThumbnailOption  # NOQA
-from filer.utils.compatibility import python_2_unicode_compatible
 
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
@@ -16,8 +15,6 @@ from djangocms_attributes_field.fields import AttributesField
 
 from .conf import settings
 
-
-@python_2_unicode_compatible
 class FilerImage(CMSPlugin):
     LEFT = "left"
     RIGHT = "right"
@@ -47,11 +44,19 @@ class FilerImage(CMSPlugin):
         help_text=_('do not resize the image. use the original image instead.'))
     thumbnail_option = models.ForeignKey(
         'filer.ThumbnailOption', null=True, blank=True, verbose_name=_("thumbnail option"),
-        help_text=_('overrides width, height, crop and upscale with values from the selected thumbnail option'))
+        help_text=_('overrides width, height, crop and upscale with values from the selected thumbnail option'),
+        on_delete=models.CASCADE)
     use_autoscale = models.BooleanField(_("use automatic scaling"), default=False,
                                         help_text=_('tries to auto scale the image based on the placeholder context'))
+    UNIT_CHOICES = (
+        ('px', _("pixels (px)")),
+        ('%', _("percent (%)")),
+        ('em', _("relative to font size (em)")),
+    )
     width = models.PositiveIntegerField(_("width"), null=True, blank=True)
+    width_units = models.CharField(_("width units"), max_length=2, choices=UNIT_CHOICES, default='px')
     height = models.PositiveIntegerField(_("height"), null=True, blank=True)
+    height_units = models.CharField(_("height units"), max_length=2, choices=UNIT_CHOICES, default='px')
     crop = models.BooleanField(_("crop"), default=True)
     upscale = models.BooleanField(_("upscale"), default=True)
     alignment = models.CharField(_("image alignment"), max_length=10, blank=True, null=True, choices=FLOAT_CHOICES)
@@ -80,6 +85,7 @@ class FilerImage(CMSPlugin):
         to=CMSPlugin,
         related_name='%(app_label)s_%(class)s',
         parent_link=True,
+        on_delete=models.CASCADE,
     )
 
     # we only add the image to select_related. page_link and file_link are FKs

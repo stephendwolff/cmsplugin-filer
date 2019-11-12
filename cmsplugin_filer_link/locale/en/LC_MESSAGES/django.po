@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-23 10:26-0400\n"
+"POT-Creation-Date: 2019-11-04 16:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,50 +17,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cms_plugins.py:18
+#: cmsplugin_filer_link/cms_plugins.py:18
 msgid "Link"
 msgstr ""
 
-#: cms_plugins.py:35
+#: cmsplugin_filer_link/cms_plugins.py:35
 msgid "Advanced"
 msgstr ""
 
-#: models.py:28
+#: cmsplugin_filer_link/models.py:28
 msgid "name"
 msgstr ""
 
-#: models.py:29
+#: cmsplugin_filer_link/models.py:29
 msgid "url"
 msgstr ""
 
-#: models.py:31
+#: cmsplugin_filer_link/models.py:31
 msgid "page"
 msgstr ""
 
-#: models.py:34
+#: cmsplugin_filer_link/models.py:34
 msgid "A link to a page has priority over urls."
 msgstr ""
 
-#: models.py:37
+#: cmsplugin_filer_link/models.py:37
 msgid "mailto"
 msgstr ""
 
-#: models.py:38
+#: cmsplugin_filer_link/models.py:38
 msgid "An email address has priority over both pages and urls"
 msgstr ""
 
-#: models.py:39
+#: cmsplugin_filer_link/models.py:39
 msgid "link style"
 msgstr ""
 
-#: models.py:41
+#: cmsplugin_filer_link/models.py:41
 msgid "new window?"
 msgstr ""
 
-#: models.py:42
+#: cmsplugin_filer_link/models.py:42
 msgid "Do you want this link to open a new window?"
 msgstr ""
 
-#: models.py:45
+#: cmsplugin_filer_link/models.py:45
 msgid "Optional. Adds HTML attributes to the rendered link."
 msgstr ""

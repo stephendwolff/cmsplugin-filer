@@ -1,8 +1,8 @@
-**Deprecated**
+This project is a fork aimed at continuing to upgrade and maintain original djangocms-filer that became no longer supported and deprecated in 2016
 
-This project is no longer supported.
+Warning: :: 
 
-Divio will undertake no further development or maintenance of this project. If you are interested in  taking responsibility for this project as its maintainer, please contact us via www.divio.com.
+    As of release 2.0.0 of this project Python 2.* support is dropped.
 
 
 ===============
@@ -28,7 +28,7 @@ Dependencies
 
 * django-filer >= 1.2
 * Django >= 1.8
-* django-cms >= 3.1
+* django-cms >= 3.4
 * django-sekizai >= 0.4.2
 * easy_thumbnails >= 1.0
 * django-appconf
@@ -177,3 +177,16 @@ Classes
 -------
 
 Classes like ``left``, ``center``, ``right`` and ``img-responsive`` are given by the plugin to use in your own projects.
+
+Testing
+=======
+
+To run tests we recommend using tox - the tox.ini file is already pre-configured and ready to use.
+
+Alternatively, to test with packages installed on your system or virutal environment and see the overall test coverage run:
+
+``coverage erase``
+
+``coverage run test_settings.py``
+
+``coverage report``

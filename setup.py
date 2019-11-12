@@ -5,7 +5,7 @@ from cmsplugin_filer_file import __version__
 setup(
     name="cmsplugin-filer",
     version=__version__,
-    url='http://github.com/divio/cmsplugin-filer',
+    url='https://github.com/pawelmarkowski/cmsplugin-filer',
     license='BSD',
     description="django-cms plugins for django-filer",
     long_description=open('README.rst').read(),
@@ -25,7 +25,7 @@ setup(
         "Django >= 1.8",
         "django-filer >= 1.2.0",
 
-        "django-cms >= 3.1",
+        "django-cms >= 3.4",
         "django-sekizai >= 0.4.2",
         "easy_thumbnails >= 1.0",
         "django-appconf",

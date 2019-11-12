@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+2.0.0 (2019-11-07)
+------------------
+
+* Made necessary updates to make project work and support Django 2.2.6 LTS
+* Rewrote video plugin to use html5 video player insted of Flash
+* Updated README with new information about the project
+* Added unit choice to image, teaser and video
+* Dropped support for python 2, old Django and djanog-cms versions
+
 1.1.3 (2016-09-05)
 ------------------
 

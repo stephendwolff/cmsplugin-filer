@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from cms.models import CMSPlugin
 
 from filer.fields.file import FilerFileField
-from filer.utils.compatibility import python_2_unicode_compatible
 
 from cmsplugin_filer_utils import FilerPluginManager
 from djangocms_attributes_field.fields import AttributesField
@@ -15,7 +14,6 @@ from djangocms_attributes_field.fields import AttributesField
 from .conf import settings
 
 
-@python_2_unicode_compatible
 class FilerFile(CMSPlugin):
     """
     Plugin for storing any type of file.
@@ -46,6 +44,7 @@ class FilerFile(CMSPlugin):
         to=CMSPlugin,
         related_name='%(app_label)s_%(class)s',
         parent_link=True,
+        on_delete=models.CASCADE,
     )
 
     objects = FilerPluginManager(select_related=('file',))
@@ -56,7 +55,7 @@ class FilerFile(CMSPlugin):
         return ''
 
     def file_exists(self):
-        if self.file_id:
+        if self.file.file.name != None:
             return self.file.file.storage.exists(self.file.file.name)
         return False
 
@@ -80,5 +79,8 @@ class FilerFile(CMSPlugin):
             # added if, because it raised attribute error when file wasnt defined
             return self.get_file_name()
         return "<empty>"
+    
+    class Meta:
+        app_label = 'cmsplugin_filer_file'
 
     search_fields = ('title',)

@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FilerImage',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin', on_delete=models.CASCADE)),
                 ('style', models.CharField(max_length=50, verbose_name='Style', default=settings.CMSPLUGIN_FILER_IMAGE_DEFAULT_STYLE, blank=True, choices=settings.CMSPLUGIN_FILER_IMAGE_STYLE_CHOICES)),
                 ('caption_text', models.CharField(max_length=255, null=True, verbose_name='caption text', blank=True)),
                 ('image_url', models.URLField(default=None, null=True, verbose_name='alternative image url', blank=True)),
@@ -31,7 +31,9 @@ class Migration(migrations.Migration):
                 ('use_original_image', models.BooleanField(default=False, help_text='do not resize the image. use the original image instead.', verbose_name='use the original image')),
                 ('use_autoscale', models.BooleanField(default=False, help_text='tries to auto scale the image based on the placeholder context', verbose_name='use automatic scaling')),
                 ('width', models.PositiveIntegerField(null=True, verbose_name='width', blank=True)),
+                ('width_units', models.CharField(verbose_name="width units", max_length=2, default='px')),
                 ('height', models.PositiveIntegerField(null=True, verbose_name='height', blank=True)),
+                ('height_units', models.CharField(verbose_name="height units", max_length=2, default='px')),
                 ('crop', models.BooleanField(default=True, verbose_name='crop')),
                 ('upscale', models.BooleanField(default=True, verbose_name='upscale')),
                 ('alignment', models.CharField(blank=True, max_length=10, null=True, verbose_name='image alignment', choices=[('left', 'left'), ('right', 'right')])),
@@ -39,8 +41,8 @@ class Migration(migrations.Migration):
                 ('original_link', models.BooleanField(default=False, help_text='if present image will be clickable', verbose_name='link original image')),
                 ('description', models.TextField(null=True, verbose_name='description', blank=True)),
                 ('target_blank', models.BooleanField(default=False, verbose_name='Open link in new window')),
-                ('file_link', filer.fields.file.FilerFileField(related_name='+', default=None, to='filer.File', blank=True, help_text='if present image will be clickable', null=True, verbose_name='file link')),
-                ('image', filer.fields.image.FilerImageField(default=None, blank=True, to='filer.Image', null=True, verbose_name='image')),
+                ('file_link', filer.fields.file.FilerFileField(related_name='+', default=None, to='filer.File', blank=True, help_text='if present image will be clickable', null=True, verbose_name='file link', on_delete=models.CASCADE)),
+                ('image', filer.fields.image.FilerImageField(default=None, blank=True, to='filer.Image', null=True, verbose_name='image', on_delete=models.CASCADE)),
                 ('page_link', cms.models.fields.PageField(blank=True, to='cms.Page', help_text='if present image will be clickable', null=True, verbose_name='page link')),
             ],
             options={
@@ -69,7 +71,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='filerimage',
             name='thumbnail_option',
-            field=models.ForeignKey(blank=True, to='cmsplugin_filer_image.ThumbnailOption', help_text='overrides width, height, crop and upscale with values from the selected thumbnail option', null=True, verbose_name='thumbnail option'),
+            field=models.ForeignKey(blank=True, to='cmsplugin_filer_image.ThumbnailOption', help_text='overrides width, height, crop and upscale with values from the selected thumbnail option', null=True, verbose_name='thumbnail option', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

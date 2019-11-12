@@ -3,12 +3,9 @@ from django.db import models
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
 from filer.fields.image import FilerImageField
-from filer.utils.compatibility import python_2_unicode_compatible
 from .conf import settings
 from cmsplugin_filer_utils import FilerPluginManager
 
-
-@python_2_unicode_compatible
 class FilerTeaser(CMSPlugin):
     """
     A Teaser
@@ -27,8 +24,15 @@ class FilerTeaser(CMSPlugin):
         _('Style'), choices=STYLE_CHOICES, default=DEFAULT_STYLE, max_length=255, blank=True)
     use_autoscale = models.BooleanField(_("use automatic scaling"), default=True,
                                         help_text=_('tries to auto scale the image based on the placeholder context'))
+    UNIT_CHOICES = (
+        ('px', _("pixels (px)")),
+        ('%', _("percent (%)")),
+        ('em', _("relative to font size (em)")),
+    )
     width = models.PositiveIntegerField(_("width"), null=True, blank=True)
+    width_units = models.CharField(_("width units"), max_length=2, choices=UNIT_CHOICES, default='px')
     height = models.PositiveIntegerField(_("height"), null=True, blank=True)
+    height_units = models.CharField(_("height units"), max_length=2, choices=UNIT_CHOICES, default='px')
 
     free_link = models.CharField(_("link"), max_length=255, blank=True, null=True, help_text=_("if present image will be clickable"))
     page_link = PageField(
@@ -46,6 +50,7 @@ class FilerTeaser(CMSPlugin):
         to=CMSPlugin,
         related_name='%(app_label)s_%(class)s',
         parent_link=True,
+        on_delete=models.CASCADE,
     )
 
     objects = FilerPluginManager(select_related=('image', 'page_link'))
