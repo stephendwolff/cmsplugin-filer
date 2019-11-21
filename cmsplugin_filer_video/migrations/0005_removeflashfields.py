@@ -47,4 +47,8 @@ class Migration(migrations.Migration):
             model_name = 'filervideo',
             name = 'auto_hide',
         ),
+        migrations.RemoveField(
+            model_name = 'filervideo',
+            name = 'seekbarbgcolor',
+        ),
     ]
