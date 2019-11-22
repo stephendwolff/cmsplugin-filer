@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             name='movie_url',
             field=models.CharField(blank=True, help_text='vimeo or youtube (embeddable!) video url. Example: https://www.youtube.com/embed/dd4D8tZPfKE', max_length=255, null=True, verbose_name='movie url'),
         ),
-        migrations.AlterField(
+        migrations.AddField(
             model_name='filervideo',
             name='preload',
             field=models.CharField(choices=[('auto', 'yes'), ('metadata', 'metadata only'), ('none', 'no')], default='none', max_length=16, verbose_name='preload'),
