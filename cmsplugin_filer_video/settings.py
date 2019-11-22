@@ -4,6 +4,7 @@ VIDEO_WIDTH = getattr(settings, "VIDEO_WIDTH", 320)
 VIDEO_HEIGHT = getattr(settings, "VIDEO_HEIGHT", 240)
 
 VIDEO_AUTOPLAY = getattr(settings, "VIDEO_AUTOPLAY", False)
+VIDEO_AUTOHIDE = getattr(settings, "VIDEO_AUTOHIDE", False)
 VIDEO_LOOP = getattr(settings, "VIDEO_LOOP", False)
 VIDEO_CONTROLS = getattr(settings, "VIDEO_CONTROLS", True)
 VIDEO_MUTED = getattr(settings, "VIDEO_MUTED", False)
