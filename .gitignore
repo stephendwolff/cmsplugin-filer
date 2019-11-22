@@ -1,5 +1,9 @@
-*.pyc
-*.pyo
+# Byte-compiled / optimized / DLL files
+.*
+!.gitignore
+*.py[cod]
+*$py.class
+
 .installed.cfg
 bin
 develop-eggs
