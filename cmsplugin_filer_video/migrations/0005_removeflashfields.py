@@ -51,4 +51,8 @@ class Migration(migrations.Migration):
             model_name = 'filervideo',
             name = 'seekbarbgcolor',
         ),
+        migrations.RemoveField(
+            model_name = 'filervideo',
+            name = 'fullscreen',
+        ),
     ]
