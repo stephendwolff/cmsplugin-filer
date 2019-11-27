@@ -7,7 +7,6 @@ import filer.fields.file
 from cmsplugin_filer_video import settings
 
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -25,7 +24,7 @@ class Migration(migrations.Migration):
                 ('height', models.PositiveSmallIntegerField(verbose_name='height', default=settings.VIDEO_HEIGHT)),
                 ('auto_play', models.BooleanField(verbose_name='auto play', default=settings.VIDEO_AUTOPLAY)),
                 ('auto_hide', models.BooleanField(verbose_name='auto hide', default=settings.VIDEO_AUTOHIDE)),
-                ('fullscreen', models.BooleanField(verbose_name='fullscreen', default=0)),
+                ('fullscreen', models.BooleanField(verbose_name='fullscreen', default=settings.VIDEO_FULLSCREEN)),
                 ('loop', models.BooleanField(verbose_name='loop', default=settings.VIDEO_LOOP)),
                 ('bgcolor', models.CharField(default=settings.VIDEO_BG_COLOR, max_length=6, verbose_name='background color', help_text='Hexadecimal, eg ff00cc')),
                 ('textcolor', models.CharField(default=settings.VIDEO_TEXT_COLOR, max_length=6, verbose_name='text color', help_text='Hexadecimal, eg ff00cc')),
