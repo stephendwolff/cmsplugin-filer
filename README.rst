@@ -1,7 +1,10 @@
 This project is a fork aimed at continuing to upgrade and maintain original djangocms-filer that became no longer supported and deprecated in 2016
 
 You can install the package via pip:
-pip install -e git+https://github.com/pawelmarkowski/cmsplugin-filer@2.0.2#egg=cmsplugin-filer
+
+Info: :: 
+
+    pip install -e git+https://github.com/pawelmarkowski/cmsplugin-filer@2.0.2#egg=cmsplugin-filer
 
 Warning: :: 
 
