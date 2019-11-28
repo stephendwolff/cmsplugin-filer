@@ -1,4 +1,4 @@
-This project is a fork aimed at continuing to upgrade and maintain original djangocms-filer that became no longer supported and deprecated in 2016
+This project is a fork aimed at continuing to upgrade and maintain original djangocms-filer that became no longer supported and deprecated in 2019
 
 You can install the package via pip: :: 
 
